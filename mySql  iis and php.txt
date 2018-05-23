@@ -1,0 +1,68 @@
+MySQL accounts
+"root" account pwd "Kuwait2000"
+"brendan" account pwd "Kuwait2000"
+
+Connection string (for php and mysqli)
+$servername = "localhost";
+$username = "brendan";
+$password = "Kuwait2000";
+$dbname = "transperth";
+$conn = new mysqli($servername, $username, $password, $dbname);
+This was tested and works - on 1/2/2018
+
+---------------------------------------------------------------------------
+We are running "IIS express" - which is installed at "/program files/iis express"
+To start IIS ( from command promompt) cd to /program files/iis express" and type "iisexpress"
+
+IIS Express is configured and run per user ( ie whoever is logged in).
+So the configuration files are located at "C:\Users\Brendan\Documents\IISExpress" for user Brendan
+The confiration file is applicationhost.config - an XML file ( open with VS Code )
+The default web site is at "C:\Users\Brendan\Documents\My Web Sites"
+site "C:\Users\Brendan\Documents\My Web Sites\BrendanSite" is located there.
+----------------------------------------------------------------------------
+PHP is installed at "C:\PHP and IIS executes "C:\PHP\php-cgi.exe" to process .php files at the site.
+To configure IIS for PHP use the following 3 commands from the "\program files\iis express" directory 
+These commands update the relevant sections of the applicationhost.config (already done 30/1/2018)
+(appcmd is used to administer iis express - unlike iis full-version which has a gui).
+C:\program files\iis express> appcmd set config /section:system.webServer/fastCGI /+[fullPath='"C:\PHP\php-cgi.exe"']
+
+C:\program files\iis express> appcmd set config /section:system.webServer/handlers /+[name='PHP_via_FastCGI',path='*.php',verb='*',modules='FastCgiModule',scriptProcessor='"C:\PHP\php-cgi.exe"',resourceType='Unspecified']
+
+C:\program files\iis express> appcmd set config /section:system.webServer/defaultDocument /+"files.[value='index.php']"
+
+-------------------------------------------------------------------------------
+You also need to configure php.ini located at c:\php\php.ini.
+There are also dev and production versions of this that you can edit.
+
+To use mysqli on php7 you need to: 
+- specify the extension directories   - near line 739 - extension_dir = c:\php\ext   NOT extension_dir = "c:\php\ext" as advertised in the instalation manual.
+- activate the extension             - near line 905 - extension=php_mysqli.dll
+                                     - near line 1146 - mysqli.allow_local_infile = On   (not sure if needed)
+                                     - near line 1189 - mysqli.reconnect = on            (not sure if needed)
+
+Also the install.txt says...
+"php_mysqli.dll MySQLi functions PHP >= 5.0.0, requires libmysql.dll"
+libmysql.dll is needed to run C language mysql clients ( maybe mysqli is written on C?)
+So I downloaded this and put it in \windows\system32
+
+
+To test that php is running OK and mysqli is alive:
+1) use the php command line  
+see - https://www.macs.hw.ac.uk/~hwloidl/docs/PHP/features.commandline.html  for more details
+c:\php\php -m  shows the extensions ( and check that mysqli is included).
+c:\php\php -h shows all command line options
+c:\php\php -i shows all sorts of internal settings and default directories
+----------------------------------------------------------------------------------
+
+In May 2018 I also installed\enabled for PHP
+1) DebugKit for cakePHP - which in turn requires sqlite for PHP.
+   - enabled extension=php_pdo_sqlite.dll line 913
+   (requires php_sqlite3.dll - but is present at c:\php\ext\)
+2) php curl -enabled  extension=php_curl.dll line 893   
+   (requires php_curl.dll - but is present at c:\php\ext\)
+
+----------------------------------------------------------------------------------
+
+
+
+

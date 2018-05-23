@@ -1,0 +1,34 @@
+This project uses the core functions of the transperth VB.net project.
+Transperth allowed user to type in a start time and dapart and arrival lat longs
+and the application would find the best bus route.
+
+This extension is to use the google map API.
+1) to display and navigate to the departure and arrival addresses, and place map markers at the 2 points.
+2) At the same time read the Lat, longs from google for ths points in VB variables.
+3) Calculate the best route as usual.
+
+OR
+
+1) User to type in the addresses and retrieve the lat longs into VB variables.
+2) Put markers at the 2 addresses
+3) Calculate the best route as usual.
+
+----------------------------------------------
+Notes on the google API(s).  From general reading on the net.....
+There are several APIs dependiong on which part of the system is being accessed.
+We will access the basic map api (to display/interact with the map) and geocode api (to look up the addresses).
+The APIs are free (no cost) to access but are controlled by keys.
+You have to get a different key for each API accessed.
+-----------------------------------------------
+Step 1.  Get the keys.
+Process is described at https://developers.google.com/places/web-service/get-api-key
+Key    AIzaSyCQST-vb5zP1posC3ttkSxe0TOGaqEg68k for the Places API Web Service
+Key    AIzaSyCYRKCPDTTvYcLpTZBj4uX3bcQxRnJJtV0 for Google Maps MAPS API
+
+------------------------------------------------
+Step 2. Make script to access the api and display a map
+This can be copied verbatim from the various Tutorials and samples in developers.google.com
+
+Step 2a. Add clieck event to place markers
+------------------------------------------------
+

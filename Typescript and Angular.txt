@@ -1,0 +1,63 @@
+node.js is needed to execute server side TypeScript
+Can be downloaded from here:
+https://nodejs.org/en/download/
+
+AnjularJS is easy because the libraries are on line and just have to be included as a URL.
+Angularjs also uses buck naked javaScript
+See the angularJS examples at c:\angularjs
+You just point the browser at the html file.
+
+Angular 2 onwards is supposed to be simpler - but seems much more involved.
+
+1) It has to be installed and this requires NPM which in turn requires nodeje
+   Install both first.
+   c:\> node -v <cr>  tells the version of node installed (v8.9.4 as at 1/2/2018)
+   c:\> npm -v <cr>   tells the version of npm  installed (5.6    as at 1/2/2018)
+   Then use npm -install ---- as per instructions at angular site
+
+2) Programs are written in typeScript .ts files ( which are compiled to typescript .js files)
+   typeScript is described as a superSet of javaScript
+
+3) The librarries are broken out in 100s of models which must be imported separately as needed.
+
+App in Angular 2 onwards are highly componentised
+
+4) Has a command line executable (cli) to create new programs(modules) and new components
+   An application module is needed to bind the "executable" components.
+
+   The top level is a html.
+   This has a directive to call the applications starting component usually called app_root  
+   <body>
+  
+      <app-root></app-root>
+
+   </body>
+   
+   the application module can declare and use its own components ( must be at least one for "bootstrapping")
+   the application module can also import other components.
+
+   Every component has:
+   - a name by which it is called
+   - a html file (including angular directives) that defines the view
+   - an array of style sheets for above
+   @Component({
+  
+         selector: 'app-root',
+  
+         templateUrl: './app.component.html',
+  
+         styleUrls: ['./app.component.css']
+
+    })
+      
+5) We end up with a lot of files - but organised into units that be deployed as needed.
+   ie you can reuse components in other app - and are pretty much self contained.
+   You have to "inject" them as "dependencies' before using them.
+
+6) services can be used for sourcing external data - and various types are available.
+
+--- for now the best way forward is the angular 4 tutorial at angular.io
+
+
+
+ 

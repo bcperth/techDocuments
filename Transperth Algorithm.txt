@@ -1,0 +1,33 @@
+Prepprocess the stops table to create new columns for stop_lat and stop_lon in radians.
+Prepprocess the stops table to create new columns for sin(stop_lat) and cos(stop_lat)
+Find all Dep stops within 500m of Dep pos - save the stopIDs and the distances (or walk times assuming walk at 6Km/Hr) 
+Find all Dep stops within 500m of Arr pos - save the stipIDs and the distances (or walk times assuming walk at 6Km/Hr)
+Use this formula for distance. assume lat1,lon1 is the stop location, and lat2,lon2 is location of starting address.
+"dist" =ACOS (Sin(Lat1) *sin(Lat2) +cos(Lat1) *cos(Lat2) *cos(Long1-Long2) ) *6371 in km
+
+depart_stops_list  = select stop_id, "dist" from stops where "dist" < 1000;  for stops near depart
+arrive_stops_list  = select stop_id, "dist" from stops where "dist" < 1000;  for stops near arrive 
+
+preprocess stop_times to make an index on each of stop_id and trip_id.
+
+depart_stop_times = select * from stop-times where stop_id IN depart stops_list AND depart_time > start_time + walk_time. 
+
+arrive_stop_times = select * from stop_times where stop_id IN arrive stops AND trip_id IN depart_stop_times
+
+
+Scarborough Beach     -31.894326, 115.757614
+Osborne Park          -31.912959, 115.817918
+
+25  Maisie            -31.917407, 115.779163
+40 Grantham st        -31.934341, 115.815755
+jb O'reilly cambridge -31.940693, 115.835234
+
+
+
+
+
+
+
+
+
+
